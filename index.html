@@ -1,22 +1,19 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><title>Gelato da Praça — Gestão</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gelato da Praça — Gestão</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
 
-<link
-    rel="stylesheet"
-    href="/style.css"
->
-
-</head><body><div class="app"><!-- =====================================================
-     SIDEBAR
-====================================================== -->
+<div class="app">
 
 <aside class="side">
 
     <div class="brand">
         <span>🍦</span>
-
         <div>
             <b>Gelato da Praça</b>
             <small>Gestão da sorveteria</small>
@@ -24,591 +21,1319 @@
     </div>
 
     <nav>
-
-        <button class="nav active" data-go="dashboard">
-            ▦
-            <span>Dashboard</span>
-        </button>
-
-        <button class="nav" data-go="produtos">
-            ◈
-            <span>Produtos</span>
-        </button>
-
-        <button class="nav" data-go="movimentacoes">
-            ↔
-            <span>Estoque</span>
-        </button>
-
-        <button class="nav" data-go="producao">
-            🍨
-            <span>Produção</span>
-        </button>
-
-        <button class="nav" data-go="vendas">
-            🛒
-            <span>Vendas</span>
-        </button>
-
-        <button class="nav" data-go="caixa">
-            💵
-            <span>Caixa</span>
-        </button>
-
-        <button class="nav" data-go="fechamento">
-            📅
-            <span>Fechamento</span>
-        </button>
-
+        <button class="nav active" data-go="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav" data-go="produtos">◈ <span>Produtos</span></button>
+        <button class="nav" data-go="movimentacoes">↔ <span>Estoque</span></button>
+        <button class="nav" data-go="producao">🍨 <span>Produção</span></button>
+        <button class="nav" data-go="vendas">🛒 <span>Vendas</span></button>
+        <button class="nav" data-go="caixa">💵 <span>Caixa</span></button>
+        <button class="nav" data-go="fechamento">📅 <span>Fechamento</span></button>
     </nav>
 
 </aside>
 
-
-<!-- =====================================================
-     CONTEÚDO PRINCIPAL
-====================================================== -->
-
 <main>
 
-    <!-- HEADER -->
+<header>
 
-    <header>
+    <div>
+        <b class="eyebrow">GELATO DA PRAÇA</b>
+        <small>
+            Última atualização:
+            <span id="updated">--</span>
+        </small>
+    </div>
 
-        <div>
+    <div class="header-actions">
+        <span id="dayStatus" class="status-pill">
+            ● Dia não aberto
+        </span>
 
-            <b class="eyebrow">
-                GELATO DA PRAÇA
-            </b>
+        <button class="add" id="addTop" title="Ações rápidas">
+            ＋
+        </button>
+    </div>
 
-            <small>
-                Última atualização:
-                <span id="updated">--</span>
-            </small>
+</header>
 
-        </div>
+<div class="wrap">
 
-        <div class="header-actions">
+<div class="title">
 
-            <span
-                id="dayStatus"
-                class="status-pill"
-            >
-                ● Dia não aberto
-            </span>
+    <b class="section-kicker">PAINEL DE CONTROLE</b>
 
-            <button
-                class="add"
-                id="addTop"
-                title="Ações rápidas"
-            >
-                ＋
-            </button>
+    <h1>Gestão da sorveteria</h1>
 
-        </div>
+    <p>
+        Acompanhe estoque, produção, vendas, caixa
+        e o resultado do seu dia em um só lugar.
+    </p>
 
-    </header>
+</div>
 
+<div class="stats">
 
-    <div class="wrap">
+    <article>
+        <span>Produtos<br>cadastrados</span>
+        <b id="s1">0</b>
+        <i>♧</i>
+    </article>
 
+    <article>
+        <span>Itens em<br>estoque</span>
+        <b id="s2">0</b>
+        <i>♢</i>
+    </article>
 
-        <!-- =================================================
-             TÍTULO
-        ================================================== -->
+    <article>
+        <span>Estoque<br>baixo</span>
+        <b id="s3">0</b>
+        <i>△</i>
+    </article>
 
-        <div class="title">
+    <article>
+        <span>Itens vendidos<br>hoje</span>
+        <b id="s5">0</b>
+        <i>▣</i>
+    </article>
 
-            <b class="section-kicker">
-                PAINEL DE CONTROLE
-            </b>
+    <article class="profit-card">
+        <span>Lucro<br>de hoje</span>
+        <b id="dailyProfit">R$ 0,00</b>
+        <i>↗</i>
+    </article>
 
-            <h1>
-                Gestão da sorveteria
-            </h1>
+</div>
 
-            <p>
-                Acompanhe estoque, produção, vendas, caixa
-                e o resultado do seu dia em um só lugar.
-            </p>
+<section class="page-section" id="dashboard">
 
-        </div>
+<div class="grid">
 
+<section class="stock card">
 
-        <!-- =================================================
-             INDICADORES
-        ================================================== -->
+<div class="head">
 
-        <div class="stats">
+<div>
+    <h2>Produtos em estoque</h2>
+    <p>Consulte, filtre e acompanhe os produtos cadastrados.</p>
+</div>
 
-            <article>
-                <span>
-                    Produtos<br>
-                    cadastrados
-                </span>
+<label class="search">
+    ⌕
+    <input id="search" placeholder="Buscar produto">
+</label>
 
-                <b id="s1">0</b>
+</div>
 
-                <i>♧</i>
-            </article>
+<div class="filters">
 
+<button class="filter active" data-filter="Todos">Todos</button>
+<button class="filter" data-filter="Sorvete">Sorvete</button>
+<button class="filter" data-filter="Picolé">Picolé</button>
+<button class="filter" data-filter="Açaí">Açaí</button>
+<button class="filter" data-filter="Complemento">Complemento</button>
+<button class="filter" data-filter="baixo">Estoque baixo</button>
+<button class="filter" data-filter="esgotado">Esgotados</button>
 
-            <article>
-                <span>
-                    Itens em<br>
-                    estoque
-                </span>
+</div>
 
-                <b id="s2">0</b>
+<div class="table">
 
-                <i>♢</i>
-            </article>
+<table>
 
+<thead>
+<tr>
+    <th>Produto</th>
+    <th>Categoria</th>
+    <th>Sabor</th>
+    <th>Inicial</th>
+    <th>Entradas</th>
+    <th>Saídas</th>
+    <th>Atual</th>
+    <th>Mínimo</th>
+</tr>
+</thead>
 
-            <article>
-                <span>
-                    Estoque<br>
-                    baixo
-                </span>
+<tbody id="tbody"></tbody>
 
-                <b id="s3">0</b>
+</table>
 
-                <i>△</i>
-            </article>
+</div>
 
+<div class="empty" id="empty">
 
-            <article>
-                <span>
-                    Itens vendidos<br>
-                    hoje
-                </span>
+    🍨
 
-                <b id="s5">0</b>
+    <b>Nenhum produto encontrado</b>
 
-                <i>▣</i>
-            </article>
+    <span>
+        Cadastre produtos para começar.
+    </span>
 
+    <button class="primary" id="emptyAdd">
+        Cadastrar produto
+    </button>
 
-            <article class="profit-card">
+</div>
 
-                <span>
-                    Lucro<br>
-                    de hoje
-                </span>
+</section>
 
-                <b id="dailyProfit">
-                    R$ 0,00
-                </b>
+<aside class="attention card">
 
-                <i>↗</i>
+<div class="head">
 
-            </article>
+<div>
+    <h2>Atenção</h2>
+    <p>Produtos que precisam de reposição.</p>
+</div>
 
-        </div>
+<em id="alerts">0 alertas</em>
 
+</div>
 
-        <!-- =================================================
-             DASHBOARD
-        ================================================== -->
+<div id="alertList"></div>
 
-        <section
-            class="page-section"
-            id="dashboard"
-        >
+</aside>
 
-            <div class="grid">
+</div>
 
-                <!-- ESTOQUE -->
+<div class="dashboard-finance">
 
-                <section class="stock card">
+<section class="mini-finance card">
+    <div>
+        <span>Faturamento de hoje</span>
+        <strong id="dailyRevenue">R$ 0,00</strong>
+    </div>
+    <i>R$</i>
+</section>
 
-                    <div class="head">
+<section class="mini-finance card">
+    <div>
+        <span>Custo das vendas</span>
+        <strong id="dailyCost">R$ 0,00</strong>
+    </div>
+    <i>⌁</i>
+</section>
 
-                        <div>
+<section class="mini-finance card">
+    <div>
+        <span>Saldo esperado</span>
+        <strong id="dailyCash">R$ 0,00</strong>
+    </div>
+    <i>₢</i>
+</section>
 
-                            <h2>
-                                Produtos em estoque
-                            </h2>
+</div>
 
-                            <p>
-                                Consulte, filtre e acompanhe
-                                os produtos cadastrados.
-                            </p>
+<section class="quick-actions card">
 
-                        </div>
+<div class="head">
 
+<div>
+    <h2>Ações rápidas</h2>
+    <p>Acesse as principais operações.</p>
+</div>
 
-                        <label class="search">
+</div>
 
-                            ⌕
+<div class="quick-grid">
 
-                            <input
-                                id="search"
-                                placeholder="Buscar produto"
-                            >
+<button class="quick" data-action="produto">
+    <span>＋</span>
+    <div>
+        <b>Novo produto</b>
+        <small>Cadastrar item no estoque</small>
+    </div>
+</button>
 
-                        </label>
+<button class="quick" data-action="movimentacao">
+    <span>↔</span>
+    <div>
+        <b>Movimentar estoque</b>
+        <small>Registrar entrada ou saída</small>
+    </div>
+</button>
 
-                    </div>
+<button class="quick" data-action="venda">
+    <span>🛒</span>
+    <div>
+        <b>Registrar venda</b>
+        <small>Registrar uma nova venda</small>
+    </div>
+</button>
 
+<button class="quick" data-action="caixa">
+    <span>💵</span>
+    <div>
+        <b>Movimentar caixa</b>
+        <small>Entrada ou despesa</small>
+    </div>
+</button>
 
-                    <div class="filters">
+</div>
 
-                        <button
-                            class="filter active"
-                            data-filter="Todos"
-                        >
-                            Todos
-                        </button>
+</section>
 
-                        <button
-                            class="filter"
-                            data-filter="Sorvete"
-                        >
-                            Sorvete
-                        </button>
+</section>
 
-                        <button
-                            class="filter"
-                            data-filter="Picolé"
-                        >
-                            Picolé
-                        </button>
+<section class="secondary page-section" id="produtos">
 
-                        <button
-                            class="filter"
-                            data-filter="Açaí"
-                        >
-                            Açaí
-                        </button>
+<div class="head">
 
-                        <button
-                            class="filter"
-                            data-filter="Complemento"
-                        >
-                            Complemento
-                        </button>
+<div>
+    <h2>Produtos</h2>
+    <p>
+        Cadastre produtos que fazem parte
+        do estoque da sorveteria.
+    </p>
+</div>
 
-                        <button
-                            class="filter"
-                            data-filter="baixo"
-                        >
-                            Estoque baixo
-                        </button>
+<button class="primary" id="addProducts">
+    ＋ Cadastrar produto
+</button>
 
-                        <button
-                            class="filter"
-                            data-filter="esgotado"
-                        >
-                            Esgotados
-                        </button>
+</div>
 
-                    </div>
+<p class="hint">
+    Os produtos cadastrados aqui aparecem
+    automaticamente no estoque e nas movimentações.
+</p>
 
+<div class="product-summary" id="productSummary"></div>
 
-                    <div class="table">
+</section>
 
-                        <table>
+<section class="secondary page-section" id="movimentacoes">
 
-                            <thead>
+<div class="head">
 
-                            <tr>
-                                <th>Produto</th>
-                                <th>Categoria</th>
-                                <th>Sabor</th>
-                                <th>Inicial</th>
-                                <th>Entradas</th>
-                                <th>Saídas</th>
-                                <th>Atual</th>
-                                <th>Mínimo</th>
-                            </tr>
+<div>
+    <h2>Movimentações de estoque</h2>
+    <p>Registre entradas, saídas e ajustes.</p>
+</div>
 
-                            </thead>
+<button class="secondary-button" id="addMove">
+    ＋ Registrar movimentação
+</button>
 
-                            <tbody id="tbody"></tbody>
+</div>
 
-                        </table>
+<div id="moves"></div>
 
-                    </div>
+</section>
 
+<section class="secondary page-section" id="producao">
 
-                    <div
-                        class="empty"
-                        id="empty"
-                    >
+<div class="head">
 
-                        🍨
+<div>
+    <h2>Produção</h2>
+    <p>
+        Registre a produção dos sabores
+        e acompanhe o custo de fabricação.
+    </p>
+</div>
 
-                        <b>
-                            Nenhum produto encontrado
-                        </b>
+<button class="primary" id="openProduction">
+    ＋ Registrar produção
+</button>
 
-                        <span>
-                            Cadastre produtos para começar.
-                        </span>
+</div>
 
-                        <button
-                            class="primary"
-                            id="emptyAdd"
-                        >
-                            Cadastrar produto
-                        </button>
+<div class="production-layout">
 
-                    </div>
+<div class="recipe-list" id="recipeList">
+    <div class="loading">
+        Carregando receitas...
+    </div>
+</div>
 
-                </section>
+<div class="production-info card-inner">
 
+<span>COMO FUNCIONA</span>
 
-                <!-- ALERTAS -->
+<h3>Produza e atualize seu estoque</h3>
 
-                <aside class="attention card">
+<p>
+    Cada produção registrada gera
+    automaticamente uma entrada no
+    estoque do sabor correspondente.
+</p>
 
-                    <div class="head">
+<div class="flow-simple">
+    <b>Receita</b>
+    <span>→</span>
+    <b>Produção</b>
+    <span>→</span>
+    <b>Estoque</b>
+</div>
 
-                        <div>
+</div>
 
-                            <h2>
-                                Atenção
-                            </h2>
+</div>
 
-                            <p>
-                                Produtos que precisam
-                                de reposição.
-                            </p>
+</section>
 
-                        </div>
+<section class="secondary page-section" id="vendas">
 
-                        <em id="alerts">
-                            0 alertas
-                        </em>
+<div class="head">
 
-                    </div>
+<div>
+    <h2>Vendas</h2>
+    <p>
+        Registre vendas e acompanhe
+        faturamento e lucro.
+    </p>
+</div>
 
+<button class="primary" id="openSale">
+    ＋ Registrar venda
+</button>
 
-                    <div id="alertList"></div>
+</div>
 
-                </aside>
+<div class="sales-summary">
 
-            </div>
+<div class="sales-box">
+    <span>Faturamento</span>
+    <strong id="salesRevenue">R$ 0,00</strong>
+</div>
 
+<div class="sales-box">
+    <span>Custo</span>
+    <strong id="salesCost">R$ 0,00</strong>
+</div>
 
-            <!-- RESUMO FINANCEIRO -->
+<div class="sales-box highlight">
+    <span>Lucro</span>
+    <strong id="salesProfit">R$ 0,00</strong>
+</div>
 
-            <div class="dashboard-finance">
+<div class="sales-box">
+    <span>Vendas</span>
+    <strong id="salesCount">0</strong>
+</div>
 
-                <section class="mini-finance card">
+</div>
 
-                    <div>
+<div class="sales-list" id="salesList">
 
-                        <span>
-                            Faturamento de hoje
-                        </span>
+<div class="empty">
+    🛒
+    <b>Nenhuma venda hoje</b>
+    <span>Registre a primeira venda do dia.</span>
+</div>
 
-                        <strong id="dailyRevenue">
-                            R$ 0,00
-                        </strong>
+</div>
 
-                    </div>
+</section>
 
-                    <i>R$</i>
+<section class="secondary page-section" id="caixa">
 
-                </section>
+<div class="head">
 
+<div>
+    <h2>Caixa</h2>
+    <p>
+        Controle entradas, despesas
+        e saldo esperado.
+    </p>
+</div>
 
-                <section class="mini-finance card">
+<button class="primary" id="openCashMove">
+    ＋ Movimentar caixa
+</button>
 
-                    <div>
+</div>
 
-                        <span>
-                            Custo das vendas
-                        </span>
+<div class="cash-grid">
 
-                        <strong id="dailyCost">
-                            R$ 0,00
-                        </strong>
+<div class="cash-main card-inner">
 
-                    </div>
+<span>SALDO ESPERADO</span>
 
-                    <i>⌁</i>
+<strong id="cashBalance">R$ 0,00</strong>
 
-                </section>
+<small>
+    Valor esperado no caixa
+    ao final do momento atual.
+</small>
 
+</div>
 
-                <section class="mini-finance card">
+<div class="cash-item">
+    <span>Abertura</span>
+    <b id="cashOpening">R$ 0,00</b>
+</div>
 
-                    <div>
+<div class="cash-item">
+    <span>Entradas</span>
+    <b class="positive" id="cashEntries">R$ 0,00</b>
+</div>
 
-                        <span>
-                            Saldo esperado
-                        </span>
+<div class="cash-item">
+    <span>Saídas</span>
+    <b class="negative" id="cashExits">R$ 0,00</b>
+</div>
 
-                        <strong id="dailyCash">
-                            R$ 0,00
-                        </strong>
+</div>
 
-                    </div>
+<div class="cash-list" id="cashList"></div>
 
-                    <i>₢</i>
+</section>
 
-                </section>
+<section class="secondary page-section" id="fechamento">
 
-            </div>
+<div class="head">
 
+<div>
 
-            <!-- AÇÕES RÁPIDAS -->
+<span class="section-kicker">CONTROLE DIÁRIO</span>
 
-            <section class="quick-actions card">
+<h2>Fechamento do dia</h2>
 
-                <div class="head">
+<p>
+    Confira os resultados antes de
+    encerrar o caixa.
+</p>
 
-                    <div>
+</div>
 
-                        <h2>
-                            Ações rápidas
-                        </h2>
+</div>
 
-                        <p>
-                            Acesse as principais operações.
-                        </p>
+<div class="day-open-banner" id="dayOpenBanner">
 
-                    </div>
+<div>
+    <span>STATUS DO DIA</span>
+    <strong id="closingStatus">Dia não aberto</strong>
+</div>
 
-                </div>
+<button class="primary" id="openDay">
+    Abrir dia
+</button>
 
+</div>
 
-                <div class="quick-grid">
+<div class="closing-result">
 
-                    <button
-                        class="quick"
-                        data-action="produto"
-                    >
-                        <span>＋</span>
+<div class="profit-highlight">
 
-                        <div>
-                            <b>
-                                Novo produto
-                            </b>
+<span>LUCRO DO DIA</span>
 
-                            <small>
-                                Cadastrar item no estoque
-                            </small>
-                        </div>
+<strong id="closingProfit">R$ 0,00</strong>
 
-                    </button>
+<small>
+    Faturamento menos custo
+    dos produtos vendidos.
+</small>
 
+</div>
 
-                    <button
-                        class="quick"
-                        data-action="movimentacao"
-                    >
-                        <span>↔</span>
+<div class="closing-number">
+    <span>FATURAMENTO</span>
+    <b id="closingRevenue">R$ 0,00</b>
+</div>
 
-                        <div>
-                            <b>
-                                Movimentar estoque
-                            </b>
+<div class="closing-number">
+    <span>CUSTO</span>
+    <b id="closingCost">R$ 0,00</b>
+</div>
 
-                            <small>
-                                Registrar entrada ou saída
-                            </small>
-                        </div>
+<div class="closing-number">
+    <span>DESPESAS</span>
+    <b id="closingExpenses">R$ 0,00</b>
+</div>
 
-                    </button>
+</div>
 
+<div class="closing-check card-inner">
 
-                    <button
-                        class="quick"
-                        data-action="venda"
-                    >
-                        <span>🛒</span>
+<div>
+    <span>SALDO ESPERADO</span>
+    <strong id="expectedBalance">R$ 0,00</strong>
+</div>
 
-                        <div>
-                            <b>
-                                Registrar venda
-                            </b>
+<div class="closing-arrow">→</div>
 
-                            <small>
-                                Registrar uma nova venda
-                            </small>
-                        </div>
+<div>
+    <span>SALDO CONTADO</span>
+    <strong id="countedBalance">R$ 0,00</strong>
+</div>
 
-                    </button>
+<div>
+    <span>DIFERENÇA</span>
+    <strong id="cashDifference">R$ 0,00</strong>
+</div>
 
+</div>
 
-                    <button
-                        class="quick"
-                        data-action="caixa"
-                    >
-                        <span>💵</span>
+<div class="close-day-box">
 
-                        <div>
-                            <b>
-                                Movimentar caixa
-                            </b>
+<div>
+    <b>Pronto para encerrar?</b>
 
-                            <small>
-                                Entrada ou despesa
-                            </small>
-                        </div>
+    <p>
+        Ao encerrar o dia, o resultado
+        ficará salvo no histórico.
+    </p>
+</div>
 
-                    </button>
+<button class="close-day-button" id="closeDay">
+    🔒 Encerrar o dia
+</button>
 
-                </div>
+</div>
 
-            </section>
+<div class="history">
 
-        </section>
+<div class="head">
 
+<div>
+    <h2>Histórico de fechamentos</h2>
+    <p>
+        Consulte os resultados dos
+        dias anteriores.
+    </p>
+</div>
 
-        <!-- =================================================
-             PRODUTOS
-        ================================================== -->
+</div>
 
-        <section
-            class="secondary page-section"
-            id="produtos"
-        >
+<div id="closingHistory"></div>
 
-            <div class="head">
+</div>
 
-                <div>
+</section>
 
-                    <h2>
-                        Produtos
-                    </h2>
+</div>
 
-                    <p>
-                        Cadastre produtos que fazem parte
-                        do estoque da sorveteria.
-                    </p>
+</main>
 
-                </div>
+</div>
 
-                <button
-                    class="primary"
-                    id="addProducts"
-                >
-                    ＋ Cadastrar produto
-                </button>
+<div class="backdrop" id="productModal">
 
-            </div>
+<div class="modal">
 
+<div class="modalHead">
 
-            <p class="hint">
+<div>
+    <h2>Cadastrar produto</h2>
+    <p>Os campos com * são obrigatórios.</p>
+</div>
 
-                Os produtos cadastrados aqui aparecem
-                automaticamente no estoque e nas
-                movimentações.
+<button class="x" data-close="productModal">×</button>
 
-            </p>
+</div>
 
+<form id="productForm">
 
-            <div
-                class="product-summary"
-                id="productSummary"
-            ></div>
+<div class="formgrid">
 
-        </section>
+<label class="full">
+    Produto *
+    <input name="nome" required maxlength="120">
+</label>
+
+<label>
+    Categoria *
+
+    <select name="categoria" required>
+
+        <option value="">Selecione</option>
+        <option value="Sorvete">Sorvete</option>
+        <option value="Cobertura">Cobertura</option>
+        <option value="Complemento">Complemento</option>
+        <option value="Açaí">Açaí</option>
+        <option value="Casquinha">Casquinha</option>
+        <option value="Picolé">Picolé</option>
+
+    </select>
+
+</label>
+
+<label>
+    Sabor
+    <input
+        name="sabor"
+        maxlength="80"
+        placeholder="Ex.: Chocolate"
+    >
+</label>
+
+<label>
+    Estoque inicial *
+    <input
+        name="estoque_inicial"
+        type="number"
+        min="0"
+        required
+    >
+</label>
+
+<label>
+    Estoque mínimo *
+    <input
+        name="estoque_minimo"
+        type="number"
+        min="0"
+        required
+    >
+</label>
+
+<label class="full">
+    Unidade *
+    <input
+        name="unidade"
+        required
+        maxlength="40"
+        placeholder="Ex.: unidades, litros, potes, kg"
+    >
+</label>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="productModal"
+>
+    Cancelar
+</button>
+
+<button class="primary" type="submit">
+    Salvar produto
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="moveModal">
+
+<div class="modal">
+
+<div class="modalHead">
+
+<div>
+    <h2>Registrar movimentação</h2>
+    <p>
+        A alteração atualiza o estoque imediatamente.
+    </p>
+</div>
+
+<button class="x" data-close="moveModal">×</button>
+
+</div>
+
+<form id="moveForm">
+
+<div class="formgrid">
+
+<label class="full">
+    Produto *
+
+    <select
+        name="produto_id"
+        id="moveProduct"
+        required
+    >
+        <option value="">Selecione um produto</option>
+    </select>
+
+</label>
+
+<label>
+    Tipo *
+
+    <select name="tipo">
+        <option value="Entrada">Entrada</option>
+        <option value="Saída">Saída</option>
+    </select>
+
+</label>
+
+<label>
+    Quantidade *
+
+    <input
+        name="quantidade"
+        type="number"
+        min="1"
+        required
+    >
+
+</label>
+
+<label class="full">
+    Responsável *
+
+    <input
+        name="responsavel"
+        required
+        maxlength="100"
+        placeholder="Nome da pessoa"
+    >
+
+</label>
+
+<label class="full">
+    Observação
+
+    <input
+        name="observacao"
+        maxlength="200"
+        placeholder="Ex.: reposição de estoque"
+    >
+
+</label>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="moveModal"
+>
+    Cancelar
+</button>
+
+<button class="secondary-button" type="submit">
+    Salvar movimentação
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="productionModal">
+
+<div class="modal">
+
+<div class="modalHead">
+
+<div>
+    <h2>Registrar produção</h2>
+    <p>A produção será adicionada ao estoque.</p>
+</div>
+
+<button class="x" data-close="productionModal">×</button>
+
+</div>
+
+<form id="productionForm">
+
+<div class="formgrid">
+
+<label class="full">
+    Sabor *
+
+    <select
+        name="sabor"
+        id="productionFlavor"
+        required
+    >
+        <option value="">Selecione o sabor</option>
+    </select>
+
+</label>
+
+<label>
+    Quantidade *
+
+    <input
+        name="quantidade"
+        type="number"
+        min="1"
+        step="1"
+        required
+    >
+
+</label>
+
+<label>
+    Responsável *
+
+    <input
+        name="responsavel"
+        required
+        maxlength="100"
+        placeholder="Nome da pessoa"
+    >
+
+</label>
+
+</div>
+
+<div
+    class="production-cost-preview"
+    id="productionCostPreview"
+>
+    Custo estimado:
+    <strong>R$ 0,00</strong>
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="productionModal"
+>
+    Cancelar
+</button>
+
+<button class="primary" type="submit">
+    Registrar produção
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="saleModal">
+
+<div class="modal">
+
+<div class="modalHead">
+
+<div>
+    <h2>Registrar venda</h2>
+
+    <p>
+        A venda reduz o estoque e entra automaticamente
+        no caixa.
+    </p>
+</div>
+
+<button class="x" data-close="saleModal">×</button>
+
+</div>
+
+<form id="saleForm">
+
+<div class="formgrid">
+
+<label class="full">
+    Sabor *
+
+    <select
+        name="sabor"
+        id="saleFlavor"
+        required
+    >
+        <option value="">Selecione o sabor</option>
+    </select>
+
+</label>
+
+<label>
+    Quantidade *
+
+    <input
+        name="quantidade"
+        type="number"
+        min="1"
+        step="1"
+        required
+    >
+
+</label>
+
+<label>
+    Forma de pagamento *
+
+    <select name="forma_pagamento" required>
+
+        <option value="Dinheiro">
+            Dinheiro
+        </option>
+
+        <option value="Pix">
+            Pix
+        </option>
+
+        <option value="Cartão de débito">
+            Cartão de débito
+        </option>
+
+        <option value="Cartão de crédito">
+            Cartão de crédito
+        </option>
+
+    </select>
+
+</label>
+
+<label class="full">
+    Responsável *
+
+    <input
+        name="responsavel"
+        required
+        maxlength="100"
+        placeholder="Nome da pessoa"
+    >
+
+</label>
+
+</div>
+
+<div class="sale-preview" id="salePreview">
+
+<div>
+    <span>Faturamento</span>
+    <strong>R$ 0,00</strong>
+</div>
+
+<div>
+    <span>Lucro estimado</span>
+    <strong>R$ 0,00</strong>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="saleModal"
+>
+    Cancelar
+</button>
+
+<button class="primary" type="submit">
+    Registrar venda
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="cashModal">
+
+<div class="modal">
+
+<div class="modalHead">
+
+<div>
+    <h2>Movimentar caixa</h2>
+    <p>Registre entradas extras ou despesas.</p>
+</div>
+
+<button class="x" data-close="cashModal">×</button>
+
+</div>
+
+<form id="cashForm">
+
+<div class="formgrid">
+
+<label>
+    Tipo *
+
+    <select name="tipo">
+        <option value="Entrada">Entrada</option>
+        <option value="Saída">Saída / Despesa</option>
+    </select>
+
+</label>
+
+<label>
+    Valor *
+
+    <input
+        name="valor"
+        type="number"
+        min="0.01"
+        step="0.01"
+        required
+    >
+
+</label>
+
+<label class="full">
+    Descrição *
+
+    <input
+        name="descricao"
+        required
+        maxlength="150"
+        placeholder="Ex.: compra de ingredientes"
+    >
+
+</label>
+
+<label>
+    Forma de pagamento
+
+    <select name="forma_pagamento">
+
+        <option value="">Não informado</option>
+
+        <option value="Dinheiro">
+            Dinheiro
+        </option>
+
+        <option value="Pix">
+            Pix
+        </option>
+
+        <option value="Cartão de débito">
+            Cartão de débito
+        </option>
+
+        <option value="Cartão de crédito">
+            Cartão de crédito
+        </option>
+
+    </select>
+
+</label>
+
+<label>
+    Responsável *
+
+    <input
+        name="responsavel"
+        required
+        maxlength="100"
+    >
+
+</label>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="cashModal"
+>
+    Cancelar
+</button>
+
+<button class="primary" type="submit">
+    Salvar movimentação
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="openDayModal">
+
+<div class="modal">
+
+<div class="modalHead">
+
+<div>
+    <h2>Abrir o dia</h2>
+
+    <p>
+        Informe quanto existe no caixa no início
+        do expediente.
+    </p>
+</div>
+
+<button class="x" data-close="openDayModal">×</button>
+
+</div>
+
+<form id="openDayForm">
+
+<div class="formgrid">
+
+<label class="full">
+    Saldo inicial do caixa *
+
+    <input
+        name="saldo_inicial"
+        type="number"
+        min="0"
+        step="0.01"
+        value="0"
+        required
+    >
+
+</label>
+
+<label class="full">
+    Responsável *
+
+    <input
+        name="responsavel"
+        required
+        maxlength="100"
+        placeholder="Nome da pessoa"
+    >
+
+</label>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="openDayModal"
+>
+    Cancelar
+</button>
+
+<button class="primary" type="submit">
+    Abrir caixa
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="backdrop" id="closeDayModal">
+
+<div class="modal closing-modal">
+
+<div class="modalHead">
+
+<div>
+
+<span class="section-kicker">FECHAMENTO</span>
+
+<h2>Encerrar o dia</h2>
+
+<p>
+    Confira o caixa e confirme o fechamento.
+</p>
+
+</div>
+
+<button class="x" data-close="closeDayModal">×</button>
+
+</div>
+
+<div class="close-summary">
+
+<div class="close-profit">
+
+<span>LUCRO DO DIA</span>
+
+<strong id="modalClosingProfit">
+    R$ 0,00
+</strong>
+
+</div>
+
+<div class="close-summary-row">
+    <span>Faturamento</span>
+    <b id="modalClosingRevenue">R$ 0,00</b>
+</div>
+
+<div class="close-summary-row">
+    <span>Custos</span>
+    <b id="modalClosingCost">R$ 0,00</b>
+</div>
+
+<div class="close-summary-row">
+    <span>Despesas</span>
+    <b id="modalClosingExpenses">R$ 0,00</b>
+</div>
+
+<div class="close-summary-row">
+    <span>Saldo esperado</span>
+    <b id="modalExpectedBalance">R$ 0,00</b>
+</div>
+
+</div>
+
+<form id="closeDayForm">
+
+<div class="formgrid">
+
+<label class="full">
+    Valor contado no caixa *
+
+    <input
+        name="saldo_final"
+        id="closingCashInput"
+        type="number"
+        min="0"
+        step="0.01"
+        required
+        placeholder="0,00"
+    >
+
+</label>
+
+</div>
+
+<div class="difference-preview" id="differencePreview">
+
+    Diferença:
+    <strong>R$ 0,00</strong>
+
+</div>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="text"
+    data-close="closeDayModal"
+>
+    Cancelar
+</button>
+
+<button
+    class="close-day-button"
+    type="submit"
+>
+    🔒 Confirmar fechamento
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html> </section>
 
 
         <!-- =================================================
