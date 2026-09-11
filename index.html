@@ -1,0 +1,2151 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><title>Gelato da Praça — Gestão</title>
+
+<link
+    rel="stylesheet"
+    href="/style.css"
+>
+
+</head><body><div class="app"><!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="side">
+
+    <div class="brand">
+        <span>🍦</span>
+
+        <div>
+            <b>Gelato da Praça</b>
+            <small>Gestão da sorveteria</small>
+        </div>
+    </div>
+
+    <nav>
+
+        <button class="nav active" data-go="dashboard">
+            ▦
+            <span>Dashboard</span>
+        </button>
+
+        <button class="nav" data-go="produtos">
+            ◈
+            <span>Produtos</span>
+        </button>
+
+        <button class="nav" data-go="movimentacoes">
+            ↔
+            <span>Estoque</span>
+        </button>
+
+        <button class="nav" data-go="producao">
+            🍨
+            <span>Produção</span>
+        </button>
+
+        <button class="nav" data-go="vendas">
+            🛒
+            <span>Vendas</span>
+        </button>
+
+        <button class="nav" data-go="caixa">
+            💵
+            <span>Caixa</span>
+        </button>
+
+        <button class="nav" data-go="fechamento">
+            📅
+            <span>Fechamento</span>
+        </button>
+
+    </nav>
+
+</aside>
+
+
+<!-- =====================================================
+     CONTEÚDO PRINCIPAL
+====================================================== -->
+
+<main>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div>
+
+            <b class="eyebrow">
+                GELATO DA PRAÇA
+            </b>
+
+            <small>
+                Última atualização:
+                <span id="updated">--</span>
+            </small>
+
+        </div>
+
+        <div class="header-actions">
+
+            <span
+                id="dayStatus"
+                class="status-pill"
+            >
+                ● Dia não aberto
+            </span>
+
+            <button
+                class="add"
+                id="addTop"
+                title="Ações rápidas"
+            >
+                ＋
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="wrap">
+
+
+        <!-- =================================================
+             TÍTULO
+        ================================================== -->
+
+        <div class="title">
+
+            <b class="section-kicker">
+                PAINEL DE CONTROLE
+            </b>
+
+            <h1>
+                Gestão da sorveteria
+            </h1>
+
+            <p>
+                Acompanhe estoque, produção, vendas, caixa
+                e o resultado do seu dia em um só lugar.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             INDICADORES
+        ================================================== -->
+
+        <div class="stats">
+
+            <article>
+                <span>
+                    Produtos<br>
+                    cadastrados
+                </span>
+
+                <b id="s1">0</b>
+
+                <i>♧</i>
+            </article>
+
+
+            <article>
+                <span>
+                    Itens em<br>
+                    estoque
+                </span>
+
+                <b id="s2">0</b>
+
+                <i>♢</i>
+            </article>
+
+
+            <article>
+                <span>
+                    Estoque<br>
+                    baixo
+                </span>
+
+                <b id="s3">0</b>
+
+                <i>△</i>
+            </article>
+
+
+            <article>
+                <span>
+                    Itens vendidos<br>
+                    hoje
+                </span>
+
+                <b id="s5">0</b>
+
+                <i>▣</i>
+            </article>
+
+
+            <article class="profit-card">
+
+                <span>
+                    Lucro<br>
+                    de hoje
+                </span>
+
+                <b id="dailyProfit">
+                    R$ 0,00
+                </b>
+
+                <i>↗</i>
+
+            </article>
+
+        </div>
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
+
+        <section
+            class="page-section"
+            id="dashboard"
+        >
+
+            <div class="grid">
+
+                <!-- ESTOQUE -->
+
+                <section class="stock card">
+
+                    <div class="head">
+
+                        <div>
+
+                            <h2>
+                                Produtos em estoque
+                            </h2>
+
+                            <p>
+                                Consulte, filtre e acompanhe
+                                os produtos cadastrados.
+                            </p>
+
+                        </div>
+
+
+                        <label class="search">
+
+                            ⌕
+
+                            <input
+                                id="search"
+                                placeholder="Buscar produto"
+                            >
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <button
+                            class="filter active"
+                            data-filter="Todos"
+                        >
+                            Todos
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="Sorvete"
+                        >
+                            Sorvete
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="Picolé"
+                        >
+                            Picolé
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="Açaí"
+                        >
+                            Açaí
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="Complemento"
+                        >
+                            Complemento
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="baixo"
+                        >
+                            Estoque baixo
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="esgotado"
+                        >
+                            Esgotados
+                        </button>
+
+                    </div>
+
+
+                    <div class="table">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Sabor</th>
+                                <th>Inicial</th>
+                                <th>Entradas</th>
+                                <th>Saídas</th>
+                                <th>Atual</th>
+                                <th>Mínimo</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="tbody"></tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div
+                        class="empty"
+                        id="empty"
+                    >
+
+                        🍨
+
+                        <b>
+                            Nenhum produto encontrado
+                        </b>
+
+                        <span>
+                            Cadastre produtos para começar.
+                        </span>
+
+                        <button
+                            class="primary"
+                            id="emptyAdd"
+                        >
+                            Cadastrar produto
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ALERTAS -->
+
+                <aside class="attention card">
+
+                    <div class="head">
+
+                        <div>
+
+                            <h2>
+                                Atenção
+                            </h2>
+
+                            <p>
+                                Produtos que precisam
+                                de reposição.
+                            </p>
+
+                        </div>
+
+                        <em id="alerts">
+                            0 alertas
+                        </em>
+
+                    </div>
+
+
+                    <div id="alertList"></div>
+
+                </aside>
+
+            </div>
+
+
+            <!-- RESUMO FINANCEIRO -->
+
+            <div class="dashboard-finance">
+
+                <section class="mini-finance card">
+
+                    <div>
+
+                        <span>
+                            Faturamento de hoje
+                        </span>
+
+                        <strong id="dailyRevenue">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                    <i>R$</i>
+
+                </section>
+
+
+                <section class="mini-finance card">
+
+                    <div>
+
+                        <span>
+                            Custo das vendas
+                        </span>
+
+                        <strong id="dailyCost">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                    <i>⌁</i>
+
+                </section>
+
+
+                <section class="mini-finance card">
+
+                    <div>
+
+                        <span>
+                            Saldo esperado
+                        </span>
+
+                        <strong id="dailyCash">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                    <i>₢</i>
+
+                </section>
+
+            </div>
+
+
+            <!-- AÇÕES RÁPIDAS -->
+
+            <section class="quick-actions card">
+
+                <div class="head">
+
+                    <div>
+
+                        <h2>
+                            Ações rápidas
+                        </h2>
+
+                        <p>
+                            Acesse as principais operações.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+                    <button
+                        class="quick"
+                        data-action="produto"
+                    >
+                        <span>＋</span>
+
+                        <div>
+                            <b>
+                                Novo produto
+                            </b>
+
+                            <small>
+                                Cadastrar item no estoque
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="quick"
+                        data-action="movimentacao"
+                    >
+                        <span>↔</span>
+
+                        <div>
+                            <b>
+                                Movimentar estoque
+                            </b>
+
+                            <small>
+                                Registrar entrada ou saída
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="quick"
+                        data-action="venda"
+                    >
+                        <span>🛒</span>
+
+                        <div>
+                            <b>
+                                Registrar venda
+                            </b>
+
+                            <small>
+                                Registrar uma nova venda
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="quick"
+                        data-action="caixa"
+                    >
+                        <span>💵</span>
+
+                        <div>
+                            <b>
+                                Movimentar caixa
+                            </b>
+
+                            <small>
+                                Entrada ou despesa
+                            </small>
+                        </div>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =================================================
+             PRODUTOS
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="produtos"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <h2>
+                        Produtos
+                    </h2>
+
+                    <p>
+                        Cadastre produtos que fazem parte
+                        do estoque da sorveteria.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary"
+                    id="addProducts"
+                >
+                    ＋ Cadastrar produto
+                </button>
+
+            </div>
+
+
+            <p class="hint">
+
+                Os produtos cadastrados aqui aparecem
+                automaticamente no estoque e nas
+                movimentações.
+
+            </p>
+
+
+            <div
+                class="product-summary"
+                id="productSummary"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             MOVIMENTAÇÕES
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="movimentacoes"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <h2>
+                        Movimentações de estoque
+                    </h2>
+
+                    <p>
+                        Registre entradas, saídas e ajustes.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-button"
+                    id="addMove"
+                >
+                    ＋ Registrar movimentação
+                </button>
+
+            </div>
+
+
+            <div id="moves"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRODUÇÃO
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="producao"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <h2>
+                        Produção
+                    </h2>
+
+                    <p>
+                        Registre a produção dos sabores
+                        e acompanhe o custo de fabricação.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary"
+                    id="openProduction"
+                >
+                    ＋ Registrar produção
+                </button>
+
+            </div>
+
+
+            <div class="production-layout">
+
+                <div class="recipe-list" id="recipeList">
+
+                    <div class="loading">
+                        Carregando receitas...
+                    </div>
+
+                </div>
+
+                <div class="production-info card-inner">
+
+                    <span>
+                        COMO FUNCIONA
+                    </span>
+
+                    <h3>
+                        Produza e atualize seu estoque
+                    </h3>
+
+                    <p>
+                        Cada produção registrada gera
+                        automaticamente uma entrada no
+                        estoque do sabor correspondente.
+                    </p>
+
+                    <div class="flow-simple">
+                        <b>Receita</b>
+                        <span>→</span>
+                        <b>Produção</b>
+                        <span>→</span>
+                        <b>Estoque</b>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             VENDAS
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="vendas"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <h2>
+                        Vendas
+                    </h2>
+
+                    <p>
+                        Registre vendas e acompanhe
+                        faturamento e lucro.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary"
+                    id="openSale"
+                >
+                    ＋ Registrar venda
+                </button>
+
+            </div>
+
+
+            <div class="sales-summary">
+
+                <div class="sales-box">
+
+                    <span>
+                        Faturamento
+                    </span>
+
+                    <strong id="salesRevenue">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="sales-box">
+
+                    <span>
+                        Custo
+                    </span>
+
+                    <strong id="salesCost">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="sales-box highlight">
+
+                    <span>
+                        Lucro
+                    </span>
+
+                    <strong id="salesProfit">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="sales-box">
+
+                    <span>
+                        Vendas
+                    </span>
+
+                    <strong id="salesCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="sales-list"
+                id="salesList"
+            >
+
+                <div class="empty">
+                    🛒
+                    <b>
+                        Nenhuma venda hoje
+                    </b>
+                    <span>
+                        Registre a primeira venda do dia.
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CAIXA
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="caixa"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <h2>
+                        Caixa
+                    </h2>
+
+                    <p>
+                        Controle entradas, despesas
+                        e saldo esperado.
+                    </p>
+
+                </div>
+
+                <button
+                    class="primary"
+                    id="openCashMove"
+                >
+                    ＋ Movimentar caixa
+                </button>
+
+            </div>
+
+
+            <div class="cash-grid">
+
+                <div class="cash-main card-inner">
+
+                    <span>
+                        SALDO ESPERADO
+                    </span>
+
+                    <strong id="cashBalance">
+                        R$ 0,00
+                    </strong>
+
+                    <small>
+                        Valor esperado no caixa
+                        ao final do momento atual.
+                    </small>
+
+                </div>
+
+
+                <div class="cash-item">
+
+                    <span>
+                        Abertura
+                    </span>
+
+                    <b id="cashOpening">
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+
+                <div class="cash-item">
+
+                    <span>
+                        Entradas
+                    </span>
+
+                    <b
+                        class="positive"
+                        id="cashEntries"
+                    >
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+
+                <div class="cash-item">
+
+                    <span>
+                        Saídas
+                    </span>
+
+                    <b
+                        class="negative"
+                        id="cashExits"
+                    >
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="cash-list"
+                id="cashList"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             FECHAMENTO DO DIA
+        ================================================== -->
+
+        <section
+            class="secondary page-section"
+            id="fechamento"
+        >
+
+            <div class="head">
+
+                <div>
+
+                    <span class="section-kicker">
+                        CONTROLE DIÁRIO
+                    </span>
+
+                    <h2>
+                        Fechamento do dia
+                    </h2>
+
+                    <p>
+                        Confira os resultados antes de
+                        encerrar o caixa.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DIA ABERTO -->
+
+            <div
+                class="day-open-banner"
+                id="dayOpenBanner"
+            >
+
+                <div>
+
+                    <span>
+                        STATUS DO DIA
+                    </span>
+
+                    <strong id="closingStatus">
+                        Dia não aberto
+                    </strong>
+
+                </div>
+
+                <button
+                    class="primary"
+                    id="openDay"
+                >
+                    Abrir dia
+                </button>
+
+            </div>
+
+
+            <!-- RESULTADO -->
+
+            <div class="closing-result">
+
+                <div class="profit-highlight">
+
+                    <span>
+                        LUCRO DO DIA
+                    </span>
+
+                    <strong id="closingProfit">
+                        R$ 0,00
+                    </strong>
+
+                    <small>
+                        Faturamento menos custo
+                        dos produtos vendidos.
+                    </small>
+
+                </div>
+
+
+                <div class="closing-number">
+
+                    <span>
+                        FATURAMENTO
+                    </span>
+
+                    <b id="closingRevenue">
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+
+                <div class="closing-number">
+
+                    <span>
+                        CUSTO
+                    </span>
+
+                    <b id="closingCost">
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+
+                <div class="closing-number">
+
+                    <span>
+                        DESPESAS
+                    </span>
+
+                    <b id="closingExpenses">
+                        R$ 0,00
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONFERÊNCIA -->
+
+            <div class="closing-check card-inner">
+
+                <div>
+
+                    <span>
+                        SALDO ESPERADO
+                    </span>
+
+                    <strong id="expectedBalance">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="closing-arrow">
+                    →
+                </div>
+
+
+                <div>
+
+                    <span>
+                        SALDO CONTADO
+                    </span>
+
+                    <strong id="countedBalance">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DIFERENÇA
+                    </span>
+
+                    <strong id="cashDifference">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÃO PRINCIPAL -->
+
+            <div class="close-day-box">
+
+                <div>
+
+                    <b>
+                        Pronto para encerrar?
+                    </b>
+
+                    <p>
+                        Ao encerrar o dia, o resultado
+                        ficará salvo no histórico.
+                    </p>
+
+                </div>
+
+                <button
+                    class="close-day-button"
+                    id="closeDay"
+                >
+                    🔒 Encerrar o dia
+                </button>
+
+            </div>
+
+
+            <!-- HISTÓRICO -->
+
+            <div class="history">
+
+                <div class="head">
+
+                    <div>
+
+                        <h2>
+                            Histórico de fechamentos
+                        </h2>
+
+                        <p>
+                            Consulte os resultados dos
+                            dias anteriores.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="closingHistory"></div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+</div><!-- =========================================================
+     MODAL — PRODUTO
+========================================================== --><div
+    class="backdrop"
+    id="productModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Cadastrar produto
+            </h2>
+
+            <p>
+                Os campos com * são obrigatórios.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="productModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="productForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Produto *
+
+                <input
+                    name="nome"
+                    required
+                    maxlength="120"
+                >
+            </label>
+
+
+            <label>
+                Categoria *
+
+                <select
+                    name="categoria"
+                    required
+                >
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="Sorvete">
+                        Sorvete
+                    </option>
+
+                    <option value="Cobertura">
+                        Cobertura
+                    </option>
+
+                    <option value="Complemento">
+                        Complemento
+                    </option>
+
+                    <option value="Açaí">
+                        Açaí
+                    </option>
+
+                    <option value="Casquinha">
+                        Casquinha
+                    </option>
+
+                    <option value="Picolé">
+                        Picolé
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Sabor
+
+                <input
+                    name="sabor"
+                    maxlength="80"
+                    placeholder="Ex.: Chocolate"
+                >
+            </label>
+
+
+            <label>
+                Estoque inicial *
+
+                <input
+                    name="estoque_inicial"
+                    type="number"
+                    min="0"
+                    required
+                >
+            </label>
+
+
+            <label>
+                Estoque mínimo *
+
+                <input
+                    name="estoque_minimo"
+                    type="number"
+                    min="0"
+                    required
+                >
+            </label>
+
+
+            <label class="full">
+                Unidade *
+
+                <input
+                    name="unidade"
+                    required
+                    maxlength="40"
+                    placeholder="Ex.: unidades, litros, potes, kg"
+                >
+            </label>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="productModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                type="submit"
+            >
+                Salvar produto
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — MOVIMENTAÇÃO
+========================================================== --><div
+    class="backdrop"
+    id="moveModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Registrar movimentação
+            </h2>
+
+            <p>
+                A alteração atualiza o estoque imediatamente.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="moveModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="moveForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Produto *
+
+                <select
+                    name="produto_id"
+                    id="moveProduct"
+                    required
+                >
+
+                    <option value="">
+                        Selecione um produto
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Tipo *
+
+                <select name="tipo">
+
+                    <option value="Entrada">
+                        Entrada
+                    </option>
+
+                    <option value="Saída">
+                        Saída
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Quantidade *
+
+                <input
+                    name="quantidade"
+                    type="number"
+                    min="1"
+                    required
+                >
+
+            </label>
+
+
+            <label class="full">
+                Responsável *
+
+                <input
+                    name="responsavel"
+                    required
+                    maxlength="100"
+                    placeholder="Nome da pessoa"
+                >
+
+            </label>
+
+
+            <label class="full">
+                Observação
+
+                <input
+                    name="observacao"
+                    maxlength="200"
+                    placeholder="Ex.: reposição de estoque"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="moveModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="secondary-button"
+                type="submit"
+            >
+                Salvar movimentação
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — PRODUÇÃO
+========================================================== --><div
+    class="backdrop"
+    id="productionModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Registrar produção
+            </h2>
+
+            <p>
+                A produção será adicionada ao estoque.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="productionModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="productionForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Sabor *
+
+                <select
+                    name="sabor"
+                    id="productionFlavor"
+                    required
+                >
+
+                    <option value="">
+                        Selecione o sabor
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Quantidade *
+
+                <input
+                    name="quantidade"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                Responsável *
+
+                <input
+                    name="responsavel"
+                    required
+                    maxlength="100"
+                    placeholder="Nome da pessoa"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="production-cost-preview"
+            id="productionCostPreview"
+        >
+            Custo estimado:
+            <strong>R$ 0,00</strong>
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="productionModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                type="submit"
+            >
+                Registrar produção
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — VENDA
+========================================================== --><div
+    class="backdrop"
+    id="saleModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Registrar venda
+            </h2>
+
+            <p>
+                A venda reduz o estoque e entra automaticamente
+                no caixa.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="saleModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="saleForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Sabor *
+
+                <select
+                    name="sabor"
+                    id="saleFlavor"
+                    required
+                >
+
+                    <option value="">
+                        Selecione o sabor
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Quantidade *
+
+                <input
+                    name="quantidade"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                Forma de pagamento *
+
+                <select
+                    name="forma_pagamento"
+                    required
+                >
+
+                    <option value="Dinheiro">
+                        Dinheiro
+                    </option>
+
+                    <option value="Pix">
+                        Pix
+                    </option>
+
+                    <option value="Cartão de débito">
+                        Cartão de débito
+                    </option>
+
+                    <option value="Cartão de crédito">
+                        Cartão de crédito
+                    </option>
+
+            <label class="full">
+                Responsável *
+
+                <input
+                    name="responsavel"
+                    required
+                    maxlength="100"
+                    placeholder="Nome da pessoa"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="sale-preview"
+            id="salePreview"
+        >
+
+            <div>
+
+                <span>
+                    Faturamento
+                </span>
+
+                <strong>
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Lucro estimado
+                </span>
+
+                <strong>
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="saleModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                type="submit"
+            >
+                Registrar venda
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — CAIXA
+========================================================== --><div
+    class="backdrop"
+    id="cashModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Movimentar caixa
+            </h2>
+
+            <p>
+                Registre entradas extras ou despesas.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="cashModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="cashForm">
+
+        <div class="formgrid">
+
+            <label>
+                Tipo *
+
+                <select name="tipo">
+
+                    <option value="Entrada">
+                        Entrada
+                    </option>
+
+                    <option value="Saída">
+                        Saída / Despesa
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Valor *
+
+                <input
+                    name="valor"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+            </label>
+
+
+            <label class="full">
+                Descrição *
+
+                <input
+                    name="descricao"
+                    required
+                    maxlength="150"
+                    placeholder="Ex.: compra de ingredientes"
+                >
+
+            </label>
+
+
+            <label>
+                Forma de pagamento
+
+                <select name="forma_pagamento">
+
+                    <option value="">
+                        Não informado
+                    </option>
+
+                    <option value="Dinheiro">
+                        Dinheiro
+                    </option>
+
+                    <option value="Pix">
+                        Pix
+                    </option>
+
+                    <option value="Cartão de débito">
+                        Cartão de débito
+                    </option>
+
+                    <option value="Cartão de crédito">
+                        Cartão de crédito
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Responsável *
+
+                <input
+                    name="responsavel"
+                    required
+                    maxlength="100"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="cashModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                type="submit"
+            >
+                Salvar movimentação
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — ABERTURA DO DIA
+========================================================== --><div
+    class="backdrop"
+    id="openDayModal"
+><div class="modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <h2>
+                Abrir o dia
+            </h2>
+
+            <p>
+                Informe quanto existe no caixa no início
+                do expediente.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="openDayModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="openDayForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Saldo inicial do caixa *
+
+                <input
+                    name="saldo_inicial"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="0"
+                    required
+                >
+
+            </label>
+
+
+            <label class="full">
+                Responsável *
+
+                <input
+                    name="responsavel"
+                    required
+                    maxlength="100"
+                    placeholder="Nome da pessoa"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="openDayModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                type="submit"
+            >
+                Abrir caixa
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     MODAL — FECHAMENTO
+========================================================== --><div
+    class="backdrop"
+    id="closeDayModal"
+><div class="modal closing-modal">
+
+    <div class="modalHead">
+
+        <div>
+
+            <span class="section-kicker">
+                FECHAMENTO
+            </span>
+
+            <h2>
+                Encerrar o dia
+            </h2>
+
+            <p>
+                Confira o caixa e confirme o fechamento.
+            </p>
+
+        </div>
+
+        <button
+            class="x"
+            data-close="closeDayModal"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="close-summary">
+
+        <div class="close-profit">
+
+            <span>
+                LUCRO DO DIA
+            </span>
+
+            <strong id="modalClosingProfit">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="close-summary-row">
+
+            <span>
+                Faturamento
+            </span>
+
+            <b id="modalClosingRevenue">
+                R$ 0,00
+            </b>
+
+        </div>
+
+
+        <div class="close-summary-row">
+
+            <span>
+                Custos
+            </span>
+
+            <b id="modalClosingCost">
+                R$ 0,00
+            </b>
+
+        </div>
+
+
+        <div class="close-summary-row">
+
+            <span>
+                Despesas
+            </span>
+
+            <b id="modalClosingExpenses">
+                R$ 0,00
+            </b>
+
+        </div>
+
+
+        <div class="close-summary-row">
+
+            <span>
+                Saldo esperado
+            </span>
+
+            <b id="modalExpectedBalance">
+                R$ 0,00
+            </b>
+
+        </div>
+
+    </div>
+
+
+    <form id="closeDayForm">
+
+        <div class="formgrid">
+
+            <label class="full">
+                Valor contado no caixa *
+
+                <input
+                    name="saldo_final"
+                    id="closingCashInput"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    required
+                    placeholder="0,00"
+                >
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="difference-preview"
+            id="differencePreview"
+        >
+
+            Diferença:
+            <strong>
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="text"
+                data-close="closeDayModal"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="close-day-button"
+                type="submit"
+            >
+                🔒 Confirmar fechamento
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div><!-- =========================================================
+     TOAST
+========================================================== --><div
+    class="toast"
+    id="toast"
+></div><script src="/script.js"></script></body>
+</html>
