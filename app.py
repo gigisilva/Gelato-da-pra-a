@@ -4,8 +4,7 @@ from flask import Flask, jsonify, request, render_template
 import sqlite3
 from pathlib import Path
 from datetime import datetime, date
-
-app = Flask(**name**, template_folder="templates", static_folder="static")
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 DB = Path(**file**).with_name("estoque.db")
 
